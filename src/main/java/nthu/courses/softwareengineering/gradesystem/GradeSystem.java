@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.HashMap;
 import java.lang.ClassLoader;
 
@@ -146,8 +147,8 @@ public class GradeSystem implements GradeSystemUi{
     					else if (cmd == CMD_UPDATE_WEIGHTS) this.updateWeights();
     					else if (cmd == 0) break;
     					else {
-    						this.showErrorCmdMsg();
-    						this.showCmdList();
+    						//this.showErrorCmdMsg();
+    						//this.showCmdList();
     					}
     				}
     			} else {
@@ -164,44 +165,28 @@ public class GradeSystem implements GradeSystemUi{
     	/* initialize return value as system runtime error code */
     	int value = -2;
     	
-    	/* initialize reader to standard in */
-    	BufferedReader reader = null;
+    	/* set standard in scanner */
+    	Scanner scanner = new Scanner(System.in);
+    	scanner.useDelimiter(System.getProperty("line.separator"));
+
     	
-    	try {
-    		/* set standard in reader */
-        	reader = new BufferedReader(
-        				new InputStreamReader(
-        						System.in
-        				)
-        			);
-        	
-        	/* read from standard in */
-        	int buff_size = 1024;
-        	char[] buff = new char[buff_size];
-        	int read_size = reader.read(buff, 0, buff_size-1);
-        	if (read_size == -1) return value;
-        	
-        	/* determine id, quit or error corresponding to input */
-        	char quit_cmd = 'Q';
-        	int id;
-        	if (buff[0] == quit_cmd)
+    	/* determine id, quit or error corresponding to input */
+    	String quit_cmd = "Q";
+    	
+    	String buff = "";
+    	if (scanner.hasNextLine() && !((buff=scanner.nextLine()).equals(""))) {
+	        System.out.println(buff);
+        	int id = -1;
+        	if (buff.equals(quit_cmd))
         		value = 0;
-        	else if ((id = Integer.parseInt(new String(buff, 0, read_size-2))) > 0)
+        	else if (!buff.equals("") && (id = Integer.parseInt(buff)) > 0)
         		value = id;
         	else if (id < 0)
         		value = -1;
-    	} catch (IOException IOErr) {
-    		IOErr.printStackTrace();
-    	} finally {
-    		/*
-    		if (reader != null) {
-    			try {
-    				reader.close();
-    			} catch (IOException IOErr) {
-    				IOErr.printStackTrace();
-    			}
-    		}*/
+        	
     	}
+    	
+    	//scanner.close();
     	
     	return value;
     }
@@ -210,52 +195,33 @@ public class GradeSystem implements GradeSystemUi{
     	/* initialize return value as system runtime error code */
     	int value = -1;
     	
-    	/* initialize reader to standard in */
-    	BufferedReader reader = null;
+    	/* set standard in scanner */
+    	Scanner scanner = new Scanner(System.in);
+    	scanner.useDelimiter(System.getProperty("line.separator"));
     	
-    	try {
-    		/* set standard in reader */
-        	reader = new BufferedReader(
-        				new InputStreamReader(
-        						System.in
-        				)
-        			);
-        	
-        	/* read from standard in */
-        	int buff_size = 1024;
-        	char[] buff = new char[buff_size];
-        	int read_size = reader.read(buff, 0, buff_size-1);
-        	if (read_size == -1) return value;
-        	
-        	/* determine id, quit or error corresponding to input */
-        	char show_grades_cmd = 'G';
-        	char show_rank_cmd = 'R';
-        	char show_average_cmd = 'A';
-        	char update_weights_cmd = 'W';
-        	char exit_cmd = 'E';
-
-        	if (buff[0] == exit_cmd)
+    	/* determine id, quit or error corresponding to input */
+    	String show_grades_cmd = "G";
+    	String show_average_cmd = "A";
+    	String show_rank_cmd = "R";
+    	String upgrade_cmd = "W";
+    	String exit_cmd = "E";
+    	
+    	String buff = "";
+    	if (scanner.hasNextLine() && !((buff=scanner.nextLine()).equals(""))) {
+        	if (buff.equals(exit_cmd))
         		value = 0;
-        	else if (buff[0] == show_grades_cmd)
+        	else if (buff.equals(show_grades_cmd))
         		value = CMD_SHOW_GRADES;
-        	else if (buff[0] == show_rank_cmd)
-        		value = CMD_SHOW_RANK;
-        	else if (buff[0] == show_average_cmd)
+        	else if (buff.equals(show_average_cmd))
         		value = CMD_SHOW_AVERAGE;
-        	else if (buff[0] == update_weights_cmd)
+        	else if (buff.equals(show_rank_cmd))
+        		value = CMD_SHOW_RANK;
+        	else if (buff.equals(upgrade_cmd))
         		value = CMD_UPDATE_WEIGHTS;
-    	} catch (IOException IOErr) {
-    		IOErr.printStackTrace();
-    	} finally {
-    		/*
-    		if (reader != null) {
-    			try {
-    				reader.close();
-    			} catch (IOException IOErr) {
-    				IOErr.printStackTrace();
-    			}
-    		}*/
+        	
     	}
+
+    	//scanner.close();
     	
     	return value;
     }

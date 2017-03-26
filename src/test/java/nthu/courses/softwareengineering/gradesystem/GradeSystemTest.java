@@ -45,21 +45,12 @@ public class GradeSystemTest {
 			
 			assertTrue(true);
 		} catch (Exception e) {
-			e.printStackTrace();
 			assertTrue(false);
 		}
 		
 		try {
 			GradeSystem gs = new GradeSystem("gradeinput.txt");
-			System.getProperty("line.separator").toCharArray();
-			byte s[] = {'9', '6', '2', '0', '0', '1', '0', '5', '1', 13,
-					    'G', 13, 
-					    'R', 13, 
-					    'E', 13, 
-					    'Q', 13};
-			InputStream in = new ByteArrayInputStream(s);
-			System.setIn(in);
-            
+			System.setIn(ClassLoader.getSystemResourceAsStream("gradesystem_test0.txt"));
 			gs.run();
 			
 			assertTrue(true);
@@ -68,100 +59,5 @@ public class GradeSystemTest {
 			assertTrue(false);
 		}
 		
-		try {
-			GradeSystem gs = new GradeSystem("gradeinput.txt");
-			
-			byte s[] = {'9', '6', '2', '0', '0', '1', '0', '5', '1', '\n',
-					    'R', '\n', 'A', '\n', 'E', '\n', 'Q', '\n'};
-			InputStream in = new ByteArrayInputStream(s);
-			System.setIn(in);
-            
-			gs.run();
-			
-			assertTrue(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(false);
-		}
-		
-		try {
-			GradeSystem gs = new GradeSystem("gradeinput.txt");
-			
-			byte s[] = {'9', '6', '2', '0', '0', '1', '0', '5', '1', '\n',
-					    'A', '\n', 'W', '\n', 'E', '\n', 'Q', '\n'};
-			InputStream in = new ByteArrayInputStream(s);
-			System.setIn(in);
-            
-			gs.run();
-			
-			assertTrue(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(false);
-		}
-		
-		try {
-			GradeSystem gs = new GradeSystem("gradeinput.txt");
-			
-			byte s[] = {'9', '6', '2', '0', '0', '1', '0', '5', '1', '\n',
-					    'W', '\n', 'G', '\n', 'E', '\n', 'Q', '\n'};
-			InputStream in = new ByteArrayInputStream(s);
-			System.setIn(in);
-            
-			gs.run();
-			
-			assertTrue(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(false);
-		}
-		
-		try {
-			GradeSystem gs = new GradeSystem("gradeinput.txt");
-			
-			byte s[] = {'9', '6', '2', '0', '0', '1', '0', '5', '1', '\n',
-					    'E', '\n', 'Q', '\n'};
-			InputStream in = new ByteArrayInputStream(s);
-			System.setIn(in);
-            
-			gs.run();
-			
-			assertTrue(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(false);
-		}
-		
-		try {
-			GradeSystem gs = new GradeSystem("gradeinput.txt");
-			
-			byte s[] = {'-', '6', '2', '0', '0', '1', '0', '5', '1', '\n',
-					    'Q', '\n'};
-			InputStream in = new ByteArrayInputStream(s);
-			System.setIn(in);
-            
-			gs.run();
-			
-			assertTrue(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(false);
-		}
-		
-		try {
-			GradeSystem gs = new GradeSystem("gradeinput.txt");
-			
-			byte s[] = {'9', '6', '2', '0', '0', '1', '0', '5', '1', '\n',
-					    'H', '\n', 'G', '\n', 'E', '\n', 'Q', '\n'};
-			InputStream in = new ByteArrayInputStream(s);
-			System.setIn(in);
-            
-			gs.run();
-			
-			assertTrue(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(false);
-		}
 	}
 }
