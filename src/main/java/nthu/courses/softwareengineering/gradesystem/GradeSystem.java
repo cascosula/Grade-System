@@ -27,6 +27,8 @@ public class GradeSystem implements GradeSystemUi{
 	private final static int CMD_SHOW_AVERAGE = 3;
 	private final static int CMD_UPDATE_WEIGHTS = 4;
 	
+	Scanner scanner = null;
+	
 	public GradeSystem(String file_name) {
 		
 		BufferedReader reader = null;
@@ -67,6 +69,9 @@ public class GradeSystem implements GradeSystemUi{
 	    	
 	    	/* ranking by total grades */
 	    	this.ranking();
+	    	
+	    	this.scanner = new Scanner(System.in);
+	    	this.scanner.useDelimiter(System.lineSeparator());
 	    } catch (FileNotFoundException file_not_found_err) {
 	    	file_not_found_err.printStackTrace();
 	    } catch (IOException io_err) {
@@ -146,9 +151,9 @@ public class GradeSystem implements GradeSystemUi{
     					else if (cmd == CMD_SHOW_AVERAGE) this.showAverage();
     					else if (cmd == CMD_UPDATE_WEIGHTS) this.updateWeights();
     					else if (cmd == 0) break;
-    					else {
-    						//this.showErrorCmdMsg();
-    						//this.showCmdList();
+    					else if (cmd == -1){
+    						this.showErrorCmdMsg();
+    						this.showCmdList();
     					}
     				}
     			} else {
@@ -156,7 +161,7 @@ public class GradeSystem implements GradeSystemUi{
     			}
     		} else if (id == 0) break;
     		else if (id == -1) System.out.println("ID錯了!");
-    		else if (id == -2) throw new GradeSystemRuntimeException();
+    		else throw new GradeSystemRuntimeException();
     	}
     	System.out.println("結束了");
     }
@@ -166,8 +171,8 @@ public class GradeSystem implements GradeSystemUi{
     	int value = -2;
     	
     	/* set standard in scanner */
-    	Scanner scanner = new Scanner(System.in);
-    	scanner.useDelimiter(System.getProperty("line.separator"));
+    	//Scanner scanner = new Scanner(System.in);
+    	//scanner.useDelimiter(System.getProperty("line.separator"));
 
     	
     	/* determine id, quit or error corresponding to input */
@@ -175,7 +180,7 @@ public class GradeSystem implements GradeSystemUi{
     	
     	String buff = "";
     	if (scanner.hasNextLine() && !((buff=scanner.nextLine()).equals(""))) {
-	        System.out.println(buff);
+	        //System.out.println(buff);
         	int id = -1;
         	if (buff.equals(quit_cmd))
         		value = 0;
@@ -185,7 +190,6 @@ public class GradeSystem implements GradeSystemUi{
         		value = -1;
         	
     	}
-    	
     	//scanner.close();
     	
     	return value;
@@ -196,8 +200,8 @@ public class GradeSystem implements GradeSystemUi{
     	int value = -1;
     	
     	/* set standard in scanner */
-    	Scanner scanner = new Scanner(System.in);
-    	scanner.useDelimiter(System.getProperty("line.separator"));
+    	//Scanner scanner = new Scanner(System.in);
+    	//scanner.useDelimiter(System.getProperty("line.separator"));
     	
     	/* determine id, quit or error corresponding to input */
     	String show_grades_cmd = "G";
@@ -218,8 +222,8 @@ public class GradeSystem implements GradeSystemUi{
         		value = CMD_SHOW_RANK;
         	else if (buff.equals(upgrade_cmd))
         		value = CMD_UPDATE_WEIGHTS;
-        	
-    	}
+    	} else
+    		value = -3;
 
     	//scanner.close();
     	
