@@ -350,8 +350,6 @@ public class GradeSystem implements GradeSystemUi{
         	
         	/* read from standard in */
         	boolean valid_weights = false;
-        	int buff_size = 1024;
-        	char[] buff = new char[buff_size];
         	
         	/* weights label */
         	char[][] label = {
@@ -381,24 +379,26 @@ public class GradeSystem implements GradeSystemUi{
         			
         			System.out.print(label[i]);
         			
-        			int read_size = reader.read(buff, 0, buff_size-1);
-        			if (read_size < 0) return;
+        			String buff = null;
+        			if (this.scanner.hasNextLine())
+        				buff = this.scanner.nextLine();
         			
-        			temp[i] = Integer.parseInt(new String(buff, 0, read_size-2));
+        			temp[i] = Integer.parseInt(buff);
         		}
         		
         		if ((valid_weights = this.check_new_weights(temp))) {
         			System.out.println("以上正確嗎? Y(Yes)或 N(No)");
         			
-        			int read_size = reader.read(buff, 0, buff_size-1);
-        			if (read_size < 0) return;
+        			String buff = null;
+        			if (this.scanner.hasNextLine())
+        				buff = this.scanner.nextLine();
         			
         			char correct_and_save_cmd = 'Y';
                 	char reinput_cmd = 'N';
 
-                	if (buff[0] == reinput_cmd)
+                	if (buff.equals("N"))
                 		valid_weights = false;
-                	else if(buff[0] == correct_and_save_cmd) {
+                	else if(buff.equals("Y")) {
             			for (int i=0; i<this.weights.length; i++)
             				this.weights[i] = ((double)temp[i]) / 100.0;
             			
@@ -412,8 +412,8 @@ public class GradeSystem implements GradeSystemUi{
         		} else
         			System.out.println("配分合不為100%! 請重新輸入");
         	}
-    	} catch (IOException IOErr) {
-    		IOErr.printStackTrace();
+    	} catch (Exception e) {
+    		e.printStackTrace();
     	} finally {
     		/*
     		if (reader != null) {

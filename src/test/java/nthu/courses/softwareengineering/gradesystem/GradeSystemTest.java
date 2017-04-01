@@ -25,6 +25,7 @@ public class GradeSystemTest {
 	 * case1 : Q -> exit system
 	 * case2 : 962001051 -> G -> R -> E -> Q
 	 * case3 : 962001051 -> R -> A -> E -> Q
+	 * case4 : 962001051 -> W -> 20 -> 20 -> 20 -> 20 -> 20 -> Y -> E -> Q
 	 */
 	@Test
 	public void testRun() {
@@ -53,6 +54,17 @@ public class GradeSystemTest {
 		
 		try {
 			System.setIn(ClassLoader.getSystemResourceAsStream("gradesystem_test2.txt"));
+			GradeSystem gs = new GradeSystem("gradeinput.txt");
+			gs.run();
+			
+			assertTrue(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+		
+		try {
+			System.setIn(ClassLoader.getSystemResourceAsStream("gradesystem_test3.txt"));
 			GradeSystem gs = new GradeSystem("gradeinput.txt");
 			gs.run();
 			
