@@ -134,6 +134,7 @@ public class GradeSystem implements GradeSystemUi{
 	 --------------------------------------------------------------------*/
     public void run() throws GradeSystemRuntimeException {
     	while(true) {
+        	System.out.println("請輸入ID或輸入Ｑ離開");
     		int id = this.scanId();
     		if (id > 0) {
     			Profile p = this.searchProfile(id);
@@ -304,11 +305,11 @@ public class GradeSystem implements GradeSystemUi{
     
     private void showCmdList() {
     	System.out.println("可使用指令為");
-    	System.out.println("G 顯示成績 (Grade)");
-    	System.out.println("R 顯示排名 (Rank)");
-    	System.out.println("A 顯示平均 (Average)");
-    	System.out.println("W 更新配分 (Weight)");
-    	System.out.println("E 離開選單 (Exit)");
+    	System.out.println("G (顯示成績)");
+    	System.out.println("R (顯示排名)");
+    	System.out.println("A (顯示平均)");
+    	System.out.println("W (更新配分)");
+    	System.out.println("E (離開選單)");
     }
     
     private void showErrorCmdMsg() {
